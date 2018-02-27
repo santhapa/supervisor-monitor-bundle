@@ -15,9 +15,8 @@ class MonitorController extends Controller
     	$supervisorClient = $this->get('zo_supervisor_monitor.util.client');
     	$res = $supervisorClient->getServersListVersion();
         
-        $services = $res ? $res['services'] : null;
-        $version = $res ? $res['version'] : null;
-        
+        $services = (isset($res['services']) && isset($res['services']->errno) && ($res['services']->errno == 0)) ? $res['services'] : null;
+        $version = (isset($res['version']) && isset($res['services']->errno) && ($res['version']->errno == 0)) ? $res['version'] : null;
 
         return $this->render('ZOSupervisorMonitorBundle::index.html.twig', array(
         	'servers' => $supervisorClient->getServers(),

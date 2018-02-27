@@ -50,4 +50,4 @@ Widget
 		$res = $this->client->getServersListVersion();
 		// $res = array('services' => $services, 'version' => $version);
 	```
-3. Supervisor monitor view can be found at `ZOSupervisorMonitorBundle::services.html.twig`. **Remember to pass `services` variable to the view.**
+3. Supervisor monitor view can be found at `ZOSupervisorMonitorBundle::services.html.twig`. **Remember to pass `services` and `version` variable to the view.**

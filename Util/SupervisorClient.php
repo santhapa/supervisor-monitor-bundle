@@ -18,10 +18,22 @@ class SupervisorClient{
 	public function getServersListVersion(){
 		if(empty($this->servers)) return;
 
-		foreach($this->servers as $name=>$config){
-			$client = $this->createClient($config['host'], $config['port'], $config['username'], $config['password']);
-			$list[$name] = $this->sendRequest($client, 'getAllProcessInfo');
-			$version[$name] = $this->sendRequest($client, 'getSupervisorVersion');
+		try {
+			foreach($this->servers as $name=>$config){
+				$client = $this->createServerClient($config);
+
+				$sRes = $this->sendRequest($client, 'getAllProcessInfo');
+				$vRes = $this->sendRequest($client, 'getSupervisorVersion');
+				if((isset($sRes->errno) && ($sRes->errno != 0)) || (isset($sRes->errno) && ($sRes->errno != 0)))
+				{
+					throw new \Exception("Something error.");					
+				}
+				$list[$name] = $sRes;
+				$version[$name] = $vRes;
+			}
+			
+		} catch (\Exception $e) {
+			return false;
 		}
 
 		return array(

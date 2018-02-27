@@ -2,7 +2,7 @@
     {% for name, procs in services %}
     	<div class="col-sm-12">
     		<div>
-        		<h4><strong>{{name | capitalize }}</strong></h4>
+        		<h4><strong>{{name | capitalize }} ({{ version[name].val.me.string }})</strong></h4>
 
         		<a class="supervisor-control btn btn-sm btn-success" href="{{ path('zo_supervisor_monitor_start_all', {'name': name}) }}" title="Start All">Start All</a>
         		<a class="supervisor-control btn btn-sm btn-danger" href="{{ path('zo_supervisor_monitor_stop_all', {'name': name}) }}" title="Stop All">Stop All</a>
